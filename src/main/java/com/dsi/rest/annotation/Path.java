@@ -13,11 +13,11 @@ public @interface Path {
 
 	String mapping() default "";
 
-	HttpMathod requestMethod() default HttpMathod.GET;
+	HttpMethod requestMethod() default HttpMethod.GET;
 
 	MediaType responseContentType() default MediaType.APPLICATION_JSON;
 
-	enum HttpMathod {
+	enum HttpMethod {
 		GET, POST, PUT, DELETE
 	}
 
