@@ -1,4 +1,4 @@
-package com.dsi.rest;
+package com.dsi.rest.server;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -7,12 +7,25 @@ import java.net.URI;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.ext.RuntimeDelegate;
 
+import com.dsi.rest.JaxRsApplication;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
-public class App {
+public class AppServer {
 
-	static HttpServer startServer() throws IOException {
+	public static void main(String[] args) throws IOException,
+			InterruptedException {
+
+		startServer();
+
+		System.out.println("Application started.\n" + "Try accessing "
+				+ getBaseURI() + "helloworld in the browser.\n"
+				+ "Hit enter to stop the application...");
+
+		Thread.currentThread().join();
+	}
+
+	private static HttpServer startServer() throws IOException {
 
 		// create a new server listening at port 8080
 		final HttpServer server = HttpServer.create(new InetSocketAddress(
@@ -34,18 +47,6 @@ public class App {
 		server.start();
 
 		return server;
-	}
-
-	public static void main(String[] args) throws IOException,
-			InterruptedException {
-
-		startServer();
-
-		System.out.println("Application started.\n" + "Try accessing "
-				+ getBaseURI() + "helloworld in the browser.\n"
-				+ "Hit enter to stop the application...");
-
-		Thread.currentThread().join();
 	}
 
 	private static int getPort(int defaultPort) {
@@ -74,7 +75,7 @@ public class App {
 	 *
 	 * @return base {@link URI}.
 	 */
-	public static URI getBaseURI() {
+	private static URI getBaseURI() {
 		return UriBuilder.fromUri("http://localhost/").port(getPort(8080))
 				.build();
 	}
