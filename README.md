@@ -1,4 +1,4 @@
-# rest-poc
+# rest
 
 How to run:
 1. Go to repo
