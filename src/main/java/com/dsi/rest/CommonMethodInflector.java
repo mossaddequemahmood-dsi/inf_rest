@@ -104,7 +104,7 @@ public class CommonMethodInflector implements Inflector<ContainerRequestContext,
 
 	}
 
-	static String convertStreamToString(InputStream is) {
+	private static String convertStreamToString(InputStream is) {
 		@SuppressWarnings("resource")
 		java.util.Scanner s = new Scanner(is).useDelimiter("\\A");
 		return s.hasNext() ? s.next() : "";
