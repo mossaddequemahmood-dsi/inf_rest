@@ -13,9 +13,10 @@ import javax.ws.rs.container.ContainerRequestContext;
 
 import org.glassfish.jersey.process.Inflector;
 
+import com.dsi.rest.annotation.Path;
+import com.dsi.rest.exception.ExceptionHandler;
 import com.dsi.rest.requestresponse.Request;
 import com.dsi.rest.requestresponse.Response;
-import com.dsi.rest.requestresponse.Status;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class CommonMethodInflector implements Inflector<ContainerRequestContext, Object> {
@@ -82,12 +83,31 @@ public class CommonMethodInflector implements Inflector<ContainerRequestContext,
 
 		try {
 			return method.invoke(cls.newInstance(), args);
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | InstantiationException e) {
-			resp.setStatus(Status.INTERNAL_SERVER_ERROR);
+		} catch (InvocationTargetException e) {
+			try {
+				throw e.getCause();
+			} catch (Throwable e1) {
+				handleOriginalException(req, resp, (Exception) e1, method);
+				e1.printStackTrace();
+			}
+		} catch (IllegalAccessException | IllegalArgumentException | InstantiationException e) {
 			e.printStackTrace();
 		}
 
 		return null;
+	}
+
+	private void handleOriginalException(Request request, Response response, Exception e, Method method) {
+
+		Path path = method.getAnnotation(Path.class);
+		@SuppressWarnings("unchecked")
+		Class<ExceptionHandler> exceptionHandler = (Class<ExceptionHandler>) path.exceptionHandler();
+		try {
+			ExceptionHandler handler = exceptionHandler.newInstance();
+			handler.handle(request, response, e);
+		} catch (InstantiationException | IllegalAccessException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	private Object fitEntityStreamInProperObject(String reqBody, Class<?> cls) {

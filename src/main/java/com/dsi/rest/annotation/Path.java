@@ -5,8 +5,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ java.lang.annotation.ElementType.TYPE,
-		java.lang.annotation.ElementType.METHOD })
+import com.dsi.rest.exception.GenericExceptionHandler;
+
+@Target({ java.lang.annotation.ElementType.TYPE, java.lang.annotation.ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Path {
@@ -16,6 +17,8 @@ public @interface Path {
 	HttpMethod requestMethod() default HttpMethod.GET;
 
 	MediaType responseContentType() default MediaType.APPLICATION_JSON;
+
+	Class<?> exceptionHandler() default GenericExceptionHandler.class;
 
 	enum HttpMethod {
 		GET, POST, PUT, DELETE
