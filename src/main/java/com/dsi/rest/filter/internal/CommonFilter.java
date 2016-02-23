@@ -11,7 +11,6 @@ import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.reflections.Reflections;
 
@@ -37,8 +36,6 @@ public class CommonFilter implements ContainerRequestFilter, ContainerResponseFi
 
 		Response resp = new HttpRestResponse();
 		requestContext.setProperty(RESP_KEY, resp);
-
-		// javax.ws.rs.core.Response.noContent().build();
 
 		// FIXME: What happen if no filter added, always scan could be
 		// performance issue.
@@ -87,4 +84,5 @@ public class CommonFilter implements ContainerRequestFilter, ContainerResponseFi
 			}
 		}
 	}
+
 }

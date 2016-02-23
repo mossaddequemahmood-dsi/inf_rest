@@ -116,9 +116,8 @@ public class CommonMethodInflector implements Inflector<ContainerRequestContext,
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			returnObj = mapper.readValue(reqBody, cls);
-			System.out.println(returnObj);
 		} catch (IOException e1) {
-			System.out.println(e1);
+			e1.printStackTrace();
 		}
 		return returnObj;
 
