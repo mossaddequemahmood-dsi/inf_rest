@@ -15,6 +15,8 @@ import org.glassfish.jersey.process.Inflector;
 
 import com.dsi.rest.annotation.Path;
 import com.dsi.rest.exception.ExceptionHandler;
+import com.dsi.rest.filter.GenericPreFilterHandler;
+import com.dsi.rest.filter.PreFilterHandler;
 import com.dsi.rest.requestresponse.Request;
 import com.dsi.rest.requestresponse.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,6 +39,9 @@ public class CommonMethodInflector implements Inflector<ContainerRequestContext,
 
 		Request req = (Request) context.getProperty(REQ_KEY);
 		Response resp = (Response) context.getProperty(RESP_KEY);
+
+		PreFilterHandler<Method> preFilterHandler = new GenericPreFilterHandler(method);
+		preFilterHandler.handle(req, resp);
 
 		boolean reqBodyMapped = false;
 		int reqBodyLength = 0;

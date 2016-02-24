@@ -20,6 +20,8 @@ public @interface Path {
 
 	Class<?> exceptionHandler() default GenericExceptionHandler.class;
 
+	Class<?>[] preFilters() default {};
+
 	enum HttpMethod {
 		GET, POST, PUT, DELETE
 	}
