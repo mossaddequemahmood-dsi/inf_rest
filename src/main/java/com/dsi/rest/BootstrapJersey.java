@@ -23,14 +23,18 @@ import org.reflections.util.ConfigurationBuilder;
 import com.dsi.rest.annotation.Path;
 import com.dsi.rest.annotation.PathParam;
 import com.dsi.rest.filter.internal.ResourceFilterBindingFeature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BootstrapJersey implements Bootstrap<JaxRsApplication> {
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	// FIXME: Load from prop file
 	private final String SCAN_PKG_REST_ANNOTATION = "com.dsi";
 
 	public BootstrapJersey() {
-
+		logger.info("Bootstraping Jersey...");
 	}
 
 	public void init(JaxRsApplication bootstrapedObj) {
