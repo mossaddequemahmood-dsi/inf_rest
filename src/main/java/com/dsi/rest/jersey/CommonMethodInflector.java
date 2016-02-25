@@ -1,4 +1,4 @@
-package com.dsi.rest;
+package com.dsi.rest.jersey;
 
 import java.io.IOException;
 import java.io.InputStream;

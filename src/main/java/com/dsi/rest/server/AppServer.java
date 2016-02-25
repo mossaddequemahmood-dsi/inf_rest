@@ -7,7 +7,7 @@ import java.net.URI;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.ext.RuntimeDelegate;
 
-import com.dsi.rest.JaxRsApplication;
+import com.dsi.rest.jersey.JaxRsApplication;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 

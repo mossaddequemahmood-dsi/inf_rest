@@ -1,4 +1,4 @@
-package com.dsi.rest;
+package com.dsi.rest.jersey;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -19,12 +19,13 @@ import org.reflections.scanners.SubTypesScanner;
 import org.reflections.scanners.TypeAnnotationsScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import com.dsi.rest.Bootstrap;
 import com.dsi.rest.annotation.Path;
 import com.dsi.rest.annotation.PathParam;
 import com.dsi.rest.filter.internal.ResourceFilterBindingFeature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class BootstrapJersey implements Bootstrap<JaxRsApplication> {
 

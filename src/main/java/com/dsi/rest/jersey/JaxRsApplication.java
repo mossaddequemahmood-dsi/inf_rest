@@ -1,6 +1,8 @@
-package com.dsi.rest;
+package com.dsi.rest.jersey;
 
 import org.glassfish.jersey.server.ResourceConfig;
+
+import com.dsi.rest.Bootstrap;
 
 public class JaxRsApplication extends ResourceConfig {
 
