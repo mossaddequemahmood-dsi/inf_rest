@@ -2,7 +2,7 @@ package com.dsi.rest.requestresponse;
 
 import java.io.InputStream;
 
-import com.dsi.rest.mutipart.Multipart;
+import com.dsi.rest.requestresponse.multipart.Multipart;
 
 public interface Request {
 

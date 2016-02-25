@@ -1,4 +1,4 @@
-package com.dsi.rest.mutipart;
+package com.dsi.rest.requestresponse.multipart;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

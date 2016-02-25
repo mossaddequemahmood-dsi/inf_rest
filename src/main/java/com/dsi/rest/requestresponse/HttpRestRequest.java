@@ -4,8 +4,8 @@ import java.io.InputStream;
 
 import javax.ws.rs.container.ContainerRequestContext;
 
-import com.dsi.rest.mutipart.Multipart;
-import com.dsi.rest.mutipart.MultipartBuilder;
+import com.dsi.rest.requestresponse.multipart.Multipart;
+import com.dsi.rest.requestresponse.multipart.MultipartBuilder;
 
 public class HttpRestRequest implements Request {
 
