@@ -1,8 +1,8 @@
 package com.dsi.rest.example.resource;
 
 import com.dsi.rest.annotation.Path;
-import com.dsi.rest.annotation.Path.HttpMethod;
 import com.dsi.rest.annotation.RestResource;
+import com.dsi.rest.entity.HttpMethod;
 import com.dsi.rest.example.filter.ExamplePreFilter;
 
 @RestResource

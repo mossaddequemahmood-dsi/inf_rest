@@ -1,4 +1,4 @@
-package com.dsi.rest.filter.internal;
+package com.dsi.rest.jersey;
 
 import java.io.IOException;
 import java.util.HashSet;

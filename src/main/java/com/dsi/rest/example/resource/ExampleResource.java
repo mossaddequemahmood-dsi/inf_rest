@@ -1,9 +1,9 @@
 package com.dsi.rest.example.resource;
 
 import com.dsi.rest.annotation.Path;
-import com.dsi.rest.annotation.Path.HttpMethod;
-import com.dsi.rest.annotation.Path.MediaType;
 import com.dsi.rest.annotation.RestResource;
+import com.dsi.rest.entity.HttpMethod;
+import com.dsi.rest.entity.MediaType;
 import com.dsi.rest.example.dto.Hello;
 import com.dsi.rest.requestresponse.Request;
 import com.dsi.rest.requestresponse.Response;
@@ -24,7 +24,7 @@ public class ExampleResource {
 	/* Sample command - 
 	 * curl -v -XGET http://localhost:8080/jsonGetRequest
 	 */
-	@Path(mapping = "jsonGetRequest", requestMethod = HttpMethod.GET, responseContentType = MediaType.APPLICATION_JSON)
+	@Path(mapping = "jsonGetRequest", requestMethod = HttpMethod.GET, responseContentType = MediaType.APPLICATION_JSON_TYPE)
 	public String jsonGetRequest() {
 		return SIMPLE_JSON;
 	}
@@ -33,7 +33,7 @@ public class ExampleResource {
 	 * curl -v -XGET http://localhost:8080/getRequestWithPathParams/mahmood/28
 	 * TODO: Can not handle param type other then String, yet!
 	 */
-	@Path(mapping = "getRequestWithPathParams/{name}/{age}", requestMethod = HttpMethod.GET, responseContentType = MediaType.APPLICATION_JSON)
+	@Path(mapping = "getRequestWithPathParams/{name}/{age}", requestMethod = HttpMethod.GET, responseContentType = MediaType.APPLICATION_JSON_TYPE)
 	public String getRequestWithPathParams(String name, String age) {
 		return "{\"name\":\"" + name + "\",\"age\":" + age + "\"}";
 	}
@@ -49,7 +49,7 @@ public class ExampleResource {
 	/* Sample command - 
 	 * curl -v -XGET http://localhost:8080/getRequestWithResponseHeader
 	 */
-	@Path(mapping = "getRequestWithResponseHeader", requestMethod = HttpMethod.GET, responseContentType = MediaType.APPLICATION_JSON)
+	@Path(mapping = "getRequestWithResponseHeader", requestMethod = HttpMethod.GET, responseContentType = MediaType.APPLICATION_JSON_TYPE)
 	public void getRequestWithResponseHeader(Response response) {
 		response.setHeader("a", "b");
 	}
@@ -57,7 +57,7 @@ public class ExampleResource {
 	/* Sample command - 
 	 * curl -v -XGET http://localhost:8080/jsonGetRequestWithPojoJsonResponse
 	 */
-	@Path(mapping = "jsonGetRequestWithPojoJsonResponse", requestMethod = HttpMethod.GET, responseContentType = MediaType.APPLICATION_JSON)
+	@Path(mapping = "jsonGetRequestWithPojoJsonResponse", requestMethod = HttpMethod.GET, responseContentType = MediaType.APPLICATION_JSON_TYPE)
 	public Hello jsonGetRequestWithPojoJsonResponse() {
 		return new Hello("Hello", "World");
 	}
@@ -65,7 +65,7 @@ public class ExampleResource {
 	/* Sample command - 
 	 * curl -XPOST http://localhost:8080/jsonPostRequestWithPojoJsonResponse -d '{"msg1":"Hello","msg2":"World"}'
 	 */
-	@Path(mapping = "jsonPostRequestWithPojoJsonResponse", requestMethod = HttpMethod.POST, responseContentType = MediaType.APPLICATION_JSON)
+	@Path(mapping = "jsonPostRequestWithPojoJsonResponse", requestMethod = HttpMethod.POST, responseContentType = MediaType.APPLICATION_JSON_TYPE)
 	public Hello jsonPostRequestWithPojoJsonResponse(Hello hello) {
 		return hello;
 	}
@@ -73,7 +73,7 @@ public class ExampleResource {
 	/* Sample command - 
 	 * curl -XPOST http://localhost:8080/complexRequest/mahmood -d '{"msg1":"Hello","msg2":"World"}'
 	 */
-	@Path(mapping = "complexRequest/{name}", requestMethod = HttpMethod.POST, responseContentType = MediaType.APPLICATION_JSON)
+	@Path(mapping = "complexRequest/{name}", requestMethod = HttpMethod.POST, responseContentType = MediaType.APPLICATION_JSON_TYPE)
 	public void getHello2Post(String name, Hello hello) {
 		System.out.println("---->" + name);
 		System.out.println("---->" + hello);

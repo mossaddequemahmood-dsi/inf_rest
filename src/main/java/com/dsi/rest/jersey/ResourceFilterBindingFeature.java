@@ -1,4 +1,4 @@
-package com.dsi.rest.filter.internal;
+package com.dsi.rest.jersey;
 
 import javax.ws.rs.container.DynamicFeature;
 import javax.ws.rs.container.ResourceInfo;
