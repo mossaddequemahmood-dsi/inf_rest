@@ -54,12 +54,14 @@ public class RouteScanner {
 
 		for (Iterator<Method> iterator = methods.iterator(); iterator.hasNext();) {
 			Method method = (Method) iterator.next();
-			if (!restResourceClasses.contains(method.getDeclaringClass())) {
-				Path path = (Path) method.getAnnotation(Path.class);
-				logger.info("Path mapping - {} removed since class {} is not annotated with RestResource",
-						path.mapping(), method.getDeclaringClass());
-				iterator.remove();
+			if (restResourceClasses.contains(method.getDeclaringClass())) {
+				continue;
 			}
+			Path path = (Path) method.getAnnotation(Path.class);
+			logger.info("Path mapping - {} removed since class {} is not annotated with @RestResource", path.mapping(),
+					method.getDeclaringClass());
+			iterator.remove();
+
 		}
 
 		for (Method method : methods) {
