@@ -9,7 +9,7 @@ import com.dsi.rest.entity.HttpMethod;
 import com.dsi.rest.entity.MediaType;
 import com.dsi.rest.exception.GenericExceptionHandler;
 
-@Target({ java.lang.annotation.ElementType.TYPE, java.lang.annotation.ElementType.METHOD })
+@Target({ java.lang.annotation.ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Path {
