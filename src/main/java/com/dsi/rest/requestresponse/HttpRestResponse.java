@@ -1,7 +1,10 @@
 package com.dsi.rest.requestresponse;
 
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.dsi.rest.util.StringUtil;
 
 public class HttpRestResponse implements Response {
 
@@ -44,4 +47,11 @@ public class HttpRestResponse implements Response {
 		return header;
 	}
 
+	@Override
+	public void redirect(String location) {
+		setHeader("Location", location);
+		setHeader("Connection", "close");
+		URI redirectURI = StringUtil.convertStringToURI(location);
+		javax.ws.rs.core.Response.temporaryRedirect(redirectURI).build();
+	}
 }

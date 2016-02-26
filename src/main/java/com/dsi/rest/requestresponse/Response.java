@@ -17,5 +17,7 @@ public interface Response {
 	void setHeader(String name, String value);
 
 	Map<String, String> getHeaders();
+	
+	void redirect(String location);
 
 }
