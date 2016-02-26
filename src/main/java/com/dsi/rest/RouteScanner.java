@@ -13,17 +13,22 @@ import org.slf4j.LoggerFactory;
 import com.dsi.rest.annotation.Path;
 import com.dsi.rest.annotation.RestResource;
 import com.dsi.rest.util.ReflectionUtil;
+import com.dsi.rest.validator.SingleResourceInSingleClassValidator;
 
 public class RouteScanner {
 
 	private final Logger logger = LoggerFactory.getLogger(RouteScanner.class);
 
+	private String scanPkg;
+	private Reflections reflections;
 	private static RouteScanner INSTANCE;
-	private String scanPkgRestAnnotation;
+
 	private List<Route> routes = new ArrayList<Route>();
 
 	private RouteScanner(String scanPkgRestAnnotation) {
-		this.scanPkgRestAnnotation = scanPkgRestAnnotation;
+		this.scanPkg = scanPkgRestAnnotation;
+		reflections = ReflectionUtil.newReflections(scanPkgRestAnnotation);
+		initContextValidation();
 		init();
 	}
 
@@ -38,9 +43,11 @@ public class RouteScanner {
 		return routes;
 	}
 
-	private void init() {
+	private void initContextValidation() {
+		new SingleResourceInSingleClassValidator().validate(scanPkg);
+	}
 
-		Reflections reflections = ReflectionUtil.newReflections(scanPkgRestAnnotation);
+	private void init() {
 
 		Set<Class<?>> restResourceClasses = ReflectionUtil.findAnnotatedClasses(reflections, RestResource.class);
 		Set<Method> methods = ReflectionUtil.findAnnotatedMethods(reflections, Path.class);
