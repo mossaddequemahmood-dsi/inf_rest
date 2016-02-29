@@ -1,0 +1,24 @@
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<display-name>Rest Application</display-name>
+
+	<!--
+	<servlet>
+		<servlet-name>javax.ws.rs.core.Application</servlet-name>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>javax.ws.rs.core.Application</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
+
+
+ <servlet> <servlet-name>Jersey REST Service</servlet-name> <servlet-class> 
+		org.glassfish.jersey.servlet.ServletContainer </servlet-class> <init-param> 
+		<param-name>jersey.config.server.provider.packages</param-name> <param-value>com.dsi.rest.example.resource</param-value> 
+		</init-param> <load-on-startup>1</load-on-startup> </servlet> <servlet-mapping> 
+		<servlet-name>Jersey REST Service</servlet-name> <url-pattern>/rest/*</url-pattern> 
+		</servlet-mapping> -->
+
+</web-app>
