@@ -1,25 +1,21 @@
 package com.dsi.rest.jersey;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 import javax.ws.rs.container.ContainerRequestContext;
 
 import org.glassfish.jersey.process.Inflector;
 
-import com.dsi.rest.annotation.Path;
-import com.dsi.rest.exception.ExceptionHandler;
 import com.dsi.rest.filter.GenericPreFilterHandler;
 import com.dsi.rest.filter.PreFilterHandler;
 import com.dsi.rest.requestresponse.Request;
 import com.dsi.rest.requestresponse.Response;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.dsi.rest.util.StringUtil;
 
 public class CommonMethodInflector implements Inflector<ContainerRequestContext, Object> {
 
@@ -43,15 +39,13 @@ public class CommonMethodInflector implements Inflector<ContainerRequestContext,
 		PreFilterHandler<Method> preFilterHandler = new GenericPreFilterHandler(method);
 		preFilterHandler.handle(req, resp);
 
-		boolean reqBodyMapped = false;
 		int reqBodyLength = 0;
-		String reqBody = null;
-		int noOfArgs = method.getParameterTypes().length;
 
+		String reqBody = null;
 		try {
 			reqBodyLength = context.getEntityStream().available();
 			if (reqBodyLength > 0) {
-				reqBody = convertStreamToString(context.getEntityStream());
+				reqBody = StringUtil.convertStreamToString(context.getEntityStream());
 			}
 		} catch (IOException e2) {
 			e2.printStackTrace();
@@ -63,38 +57,15 @@ public class CommonMethodInflector implements Inflector<ContainerRequestContext,
 			argList.add(vals.get(0));
 		}
 
-		while (argList.size() < noOfArgs) {
-			argList.add(null);
-		}
+		ResourceMethodArgumentBuilder argBuilder = new ResourceMethodArgumentBuilder(method, argList, reqBody, reqBodyLength, req,
+				resp);
+		Object[] args = argBuilder.build();
 
-		for (int i = 0; i < noOfArgs; i++) {
-			Class<?> cls = method.getParameterTypes()[i];
-			if (cls == Request.class) {
-				argList.set(i, req);
-			} else if (cls == Response.class) {
-				argList.set(i, resp);
-			} else {
-				if (!reqBodyMapped && reqBodyLength > 0) {
-					Object obj = fitEntityStreamInProperObject(reqBody, cls);
-					if (obj != null) {
-						argList.set(i, obj);
-						reqBodyMapped = true;
-					}
-				}
-			}
-		}
-
-		Object[] args = argList.toArray();
-
+		OriginalExceptionHandler originalExceptionHandler = new OriginalExceptionHandler();
 		try {
 			return method.invoke(cls.newInstance(), args);
 		} catch (InvocationTargetException e) {
-			try {
-				throw e.getCause();
-			} catch (Throwable e1) {
-				handleOriginalException(req, resp, (Exception) e1, method);
-				e1.printStackTrace();
-			}
+			originalExceptionHandler.handle(req, resp, e, method);
 		} catch (IllegalAccessException | IllegalArgumentException | InstantiationException e) {
 			e.printStackTrace();
 		}
@@ -102,35 +73,4 @@ public class CommonMethodInflector implements Inflector<ContainerRequestContext,
 		return null;
 	}
 
-	private void handleOriginalException(Request request, Response response, Exception e, Method method) {
-
-		Path path = method.getAnnotation(Path.class);
-		@SuppressWarnings("unchecked")
-		Class<ExceptionHandler> exceptionHandler = (Class<ExceptionHandler>) path.exceptionHandler();
-		try {
-			ExceptionHandler handler = exceptionHandler.newInstance();
-			handler.handle(request, response, e);
-		} catch (InstantiationException | IllegalAccessException e1) {
-			e1.printStackTrace();
-		}
-	}
-
-	private Object fitEntityStreamInProperObject(String reqBody, Class<?> cls) {
-		Object returnObj = null;
-
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			returnObj = mapper.readValue(reqBody, cls);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		return returnObj;
-
-	}
-
-	private static String convertStreamToString(InputStream is) {
-		@SuppressWarnings("resource")
-		java.util.Scanner s = new Scanner(is).useDelimiter("\\A");
-		return s.hasNext() ? s.next() : "";
-	}
 }

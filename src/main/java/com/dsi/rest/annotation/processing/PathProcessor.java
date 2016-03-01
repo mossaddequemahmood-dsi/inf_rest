@@ -12,6 +12,7 @@ import javax.tools.Diagnostic;
 
 import com.dsi.rest.annotation.Path;
 
+@Deprecated
 public class PathProcessor extends AbstractProcessor {
 
 	@Override
