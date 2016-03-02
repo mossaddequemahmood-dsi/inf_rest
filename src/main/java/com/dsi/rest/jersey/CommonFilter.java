@@ -19,6 +19,7 @@ import com.dsi.rest.requestresponse.HttpRestRequest;
 import com.dsi.rest.requestresponse.HttpRestResponse;
 import com.dsi.rest.requestresponse.Request;
 import com.dsi.rest.requestresponse.Response;
+import com.dsi.rest.requestresponse.holder.RequestResponseHolder;
 
 public class CommonFilter implements ContainerRequestFilter, ContainerResponseFilter {
 
@@ -36,6 +37,9 @@ public class CommonFilter implements ContainerRequestFilter, ContainerResponseFi
 
 		Response resp = new HttpRestResponse();
 		requestContext.setProperty(RESP_KEY, resp);
+
+		RequestResponseHolder.setRequest(req);
+		RequestResponseHolder.setResponse(resp);
 
 		// FIXME: What happen if no filter added, always scan could be
 		// performance issue.
