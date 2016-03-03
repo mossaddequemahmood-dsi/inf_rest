@@ -49,6 +49,7 @@ public class HttpRestResponse implements Response {
 
 	@Override
 	public void redirect(String location) {
+		setStatus(Status.MOVED_PERMANENTLY);
 		setHeader("Location", location);
 		setHeader("Connection", "close");
 		URI redirectURI = StringUtil.convertStringToURI(location);

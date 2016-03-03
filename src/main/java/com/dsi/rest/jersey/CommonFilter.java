@@ -84,7 +84,7 @@ public class CommonFilter implements ContainerRequestFilter, ContainerResponseFi
 		if (resp.getHeaders().size() > 0) {
 			MultivaluedMap<String, Object> headers = responseContext.getHeaders();
 			for (Map.Entry<String, String> header : resp.getHeaders().entrySet()) {
-				headers.add(header.getKey(), header.getValue());
+				headers.putSingle(header.getKey(), header.getValue());
 			}
 		}
 	}
