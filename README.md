@@ -6,11 +6,11 @@
 * It will put **rest-<version>.jar** in maven repo.
 * Put following maven dependency in your project .
 ```
-    <dependency>
-        <groupId>com.dsi</groupId>
-	<artifactId>rest</artifactId>
-	<version>1.0.0</version> <!-- put appropriate version here -->
-    </dependency>
+	<dependency>
+		<groupId>com.dsi</groupId>
+		<artifactId>rest</artifactId>
+		<version>1.0.0</version> <!-- put appropriate version here -->
+	</dependency>
 ```
 
 #### Note:
