@@ -64,7 +64,7 @@ public class ResourceMethodArgumentBuilder {
 			ObjectMapper mapper = new ObjectMapper();
 			returnObj = mapper.readValue(reqBody, cls);
 		} catch (IOException e1) {
-			e1.printStackTrace();
+			// Ignore exception, object unfit object will throw exception.
 		}
 		return returnObj;
 

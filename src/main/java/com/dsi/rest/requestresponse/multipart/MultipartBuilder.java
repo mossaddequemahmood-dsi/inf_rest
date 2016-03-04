@@ -46,6 +46,11 @@ public class MultipartBuilder {
 		}
 
 		String boundaryStr = extractBoundary(request.getHeader(CONTENT_TYPE_HEADER));
+
+		if (boundaryStr == null || boundaryStr.length() == 0) {
+			return;
+		}
+
 		byte[] boundary = boundaryStr.getBytes();
 
 		ByteArrayInputStream content = null;
@@ -150,6 +155,9 @@ public class MultipartBuilder {
 		Pattern pattern = Pattern.compile(BOUNDARY_REGEX);
 		Matcher matcher = pattern.matcher(in);
 		matcher.find();
+		if (!matcher.matches()) {
+			return null;
+		}
 		String boundary = matcher.group();
 		boundary = boundary.substring(9);
 		return boundary;
