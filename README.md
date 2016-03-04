@@ -8,8 +8,8 @@
 ```
     <dependency>
         <groupId>com.dsi</groupId>
-	    <artifactId>rest</artifactId>
-	        <version>1.0.0</version> <!-- put appropriate version here -->
+	<artifactId>rest</artifactId>
+	<version>1.0.0</version> <!-- put appropriate version here -->
     </dependency>
 ```
 
